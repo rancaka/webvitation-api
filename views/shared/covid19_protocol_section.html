@@ -1,0 +1,77 @@
+{{ define "Covid19Section" }}
+<style>
+        .health-protocol {
+            background-color: #eed202;
+            margin-bottom: -40px;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .health-protocol-title {
+            font-size: 2rem
+        }
+
+        .health-protocol-subtitle {
+            font-size: 1.4rem;
+            padding: 16px 0;
+        }
+
+        .health-protocol-list {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            font-size: 1.2rem
+        }
+
+        .health-protocol-item-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: black;
+        }
+
+        .health-protocol-item {
+            width: 50%;
+            padding: 8px;
+        }
+
+        .health-protocol-item-img {
+            width: 100px;
+            object-fit: contain;
+            padding: 8px 0;
+        }
+</style>
+<div class="health-protocol">
+    <h2 class="health-protocol-title"> Covid-19 Health Protocol</h2>
+    <p class="health-protocol-subtitle">With all due respect, to ensure everyone's safety, we are going to impose The Covid-19 Health Protocol issued by the government during the event. Please find the protocol items below:</p>
+    <div class="health-protocol-list">
+        <div class="health-protocol-item">
+            <p class="health-protocol-item-title">Social Distancing</p>
+            <img src="https://firebasestorage.googleapis.com/v0/b/tamu-indonesia.appspot.com/o/shared-images%2Fcovid-19%20protocols%2Fkeep-distance.svg?alt=media&token=ab0717d0-b834-4aff-895b-b06c2f3a63b8" alt="" class="health-protocol-item-img">
+            <p class="health-protocol-description">
+                Keep your distance with other guests
+            </p>
+        </div>
+        <div class="health-protocol-item">
+            <p class="health-protocol-item-title">Wear Face Mask</p>
+            <img src="https://firebasestorage.googleapis.com/v0/b/tamu-indonesia.appspot.com/o/shared-images%2Fcovid-19%20protocols%2Fmask.svg?alt=media&token=e08871f8-746e-46f4-8613-c538c9e33899" alt="" class="health-protocol-item-img">
+            <p class="health-protocol-description">
+                Always wear your mask when you are not eating/drinking
+            </p>
+        </div>
+        <div class="health-protocol-item">
+            <p class="health-protocol-item-title">Wash Hands</p>
+            <img src="https://firebasestorage.googleapis.com/v0/b/tamu-indonesia.appspot.com/o/shared-images%2Fcovid-19%20protocols%2Fwash-your-hands.svg?alt=media&token=d2541031-a38d-4d4c-9992-d111586ee881" alt="" class="health-protocol-item-img">
+            <p class="health-protocol-description">
+                Wash your hands with hand sanitizer
+            </p>
+        </div>
+        <div class="health-protocol-item">
+            <p class="health-protocol-item-title">Check Body Temperature</p>
+            <img src="https://firebasestorage.googleapis.com/v0/b/tamu-indonesia.appspot.com/o/shared-images%2Fcovid-19%20protocols%2Fthermometer.svg?alt=media&token=d9461c17-4459-4208-b1f4-b8644c22a1e0" alt="" class="health-protocol-item-img">
+            <p class="health-protocol-description">
+                Check your body temperature when entering the venue
+            </p>
+        </div>
+    </div>
+</div>
+{{ end }}

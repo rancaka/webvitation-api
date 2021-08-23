@@ -1,0 +1,704 @@
+<html>
+    <head>
+        <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgo=">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+        <style>
+            @import url('https://fonts.googleapis.com/css?family=Cabin|Herr+Von+Muellerhoff|Source+Sans+Pro:400,900&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;900&display=swap');
+
+            *,
+            *::before,
+            *::after{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            :root {
+                --main-font: 'Source Sans Pro', sans-serif;
+                --secondary-font: 'Herr Von Muellerhoff', cursive;
+                --third-font: 'Montserrat', sans-serif;
+                --body-font: 'Cabin', sans-serif;
+                --main-font-color-dark: #252525;
+                --secondary-font-color: #c59d5f;
+                --body-font-color: #515151;
+            }
+
+            html {
+                font-family: var(--main-font);
+                color: var(--body-font-color);
+                font-size: 10px;
+                scroll-behavior: smooth;
+            }
+
+            html, body {
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+
+            body {
+                background:
+                linear-gradient(
+                    rgba(0, 0, 0, 0.5), 
+                    rgba(0, 0, 0, 0.5)
+                ),
+                url('{{ .Wedding.CheckInBackgroundURL }}');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                position: relative;
+                height: 100vh;
+                overflow-y: hidden;
+            }
+
+            .container {
+                width: 100vw;
+                height: 100%;
+                position: absolute;
+            }
+
+            .scan-container {
+                width: 100vw;
+                text-align: center;
+                margin: 50px 0;
+            }
+
+            .wedding-title {
+                width: 100%;
+                color: white;
+                z-index: 1000;
+                text-align: center;
+                margin-bottom: 4rem;
+            }
+
+            .sub-header {
+                text-transform: uppercase;
+                letter-spacing: 5px;
+                margin-right: -5px;
+                font-size: 2rem;
+            }
+
+            .couple-name {
+                display: inline-block;
+                font-family: var(--secondary-font);
+                font-size: 16rem;
+                font-weight: 100;
+            }
+
+            .couple-separator {
+                display: inline-block;
+                font-family: var(--secondary-font);
+                font-size: 4rem;
+                padding: 0 4rem;
+            }
+
+            .scan-here {
+                display: flex;
+                margin-bottom: 32px;
+                align-items: center;
+                font-size: 4rem;
+                text-transform: uppercase;
+                color: white;
+                position: relative;
+                animation: bouncingUpAndDown 1s infinite;
+                width: 75vw;
+                margin: 0 auto;
+            }
+
+            .scan-title {
+                letter-spacing: 5px;
+                margin-right: 1.6rem;
+            }
+
+            .qr-image-example {
+                border: 4px solid white;
+                border-radius: 4px;
+                width: 9rem;
+                height: 9rem;
+                margin-right: 1.6rem;
+            }
+
+            .register-manual {
+                color: white;
+                font-size: 2rem;
+            }
+
+            .sync-button {
+                position: absolute;
+                bottom: 1.6rem;
+                right: 1.6rem;
+            }
+
+            .full-screen-button {
+                position: absolute;
+                top: 1.6rem;
+                right: 1.6rem;
+            }
+
+            .sync-button:disabled {
+                background-color: yellow;
+            }
+
+            @keyframes bouncingUpAndDown {
+                0% {
+                    transform: translateX(0rem);
+                }
+
+                50% {
+                    transform: translateX(4rem);
+                }
+
+                100% {
+                    transform: translateX(0rem);
+                }
+            }
+
+            .register-page {
+                background-color: #121212;
+                animation: slideOut .5s forwards;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transform: translateY(100vh);
+            }
+
+            @keyframes slideIn {
+                0% {
+                    transform: translateY(100vh);
+                }
+
+                100% {
+                    transform: translateY(0vh);
+                    opacity: 1;
+                }
+            }
+
+            @keyframes slideOut {
+                0% {
+                    transform: translateY(0vh);
+                }
+
+                100% {
+                    transform: translateY(100vh);
+                    opacity: 0;
+                }
+            }
+
+            .close-button {
+                font-size: 4rem;
+                position: absolute;
+                top: 16px;
+                right: 16px;
+                color: white;
+            }
+
+            .register-form {
+                display: flex;
+                flex-direction: column;
+                width: 80vw;
+                position: relative;
+            }
+
+            .big-input {
+                background: none;
+                border-style: none;
+                border-bottom: 8px solid white;
+                height: 100px;
+                padding: 0 10px;
+                color: white;
+                font-size: 5rem;
+                letter-spacing: 2px;
+            }
+
+            .big-input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+                color: white;
+                opacity: 0.5; /* Firefox */
+                font-size: 5rem;
+                letter-spacing: 2px;
+            }
+
+            .big-input:focus {
+                outline: none;
+            }
+
+            .register-submit {
+                background: none;
+                border: none;
+                font-size: 5rem;
+                color: #007bff;
+                position: absolute;
+                right: 10px;
+                transform: translateY(50%);
+            }
+
+            .register-submit:focus {
+                outline: none;
+            }
+
+            .welcome-page {
+                animation: slideOut .5s forwards;
+                background-color: #28a745;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transform: translateY(100vh);
+            }
+
+            .sub-headline {
+                font-size: 8.5rem;
+                font-family: var(--secondary-font);
+                color: white;
+                font-weight: 100;
+                line-height: .4;
+                letter-spacing: 2px;
+            }
+
+            .first-letter {
+                text-transform: uppercase;
+                font-size: 10.3rem;
+            }
+
+            .headline {
+                color: white;
+                font-size: 6.8rem;
+                font-family: var(--main-font);
+                text-transform: uppercase;
+                font-weight: 900;
+                letter-spacing: .5rem;
+                margin-right: -.5rem;
+                margin: 3rem -.5rem 3rem 0;
+            }
+
+            /* Check animation */
+            /** * Extracted from: SweetAlert * Modified by: Istiak Tridip */
+            .success-checkmark {
+                width: 80px;
+                height: 115px;
+                margin: 0 auto;
+            }
+            .success-checkmark .check-icon {
+                width: 80px;
+                height: 80px;
+                position: relative;
+                border-radius: 50%;
+                box-sizing: content-box;
+                border: 4px solid white;
+            }
+            .success-checkmark .check-icon::before {
+                top: 3px;
+                left: -2px;
+                width: 30px;
+                transform-origin: 100% 50%;
+                border-radius: 100px 0 0 100px;
+            }
+            .success-checkmark .check-icon::after {
+                top: 0;
+                left: 30px;
+                width: 60px;
+                transform-origin: 0 50%;
+                border-radius: 0 100px 100px 0;
+                animation: rotate-circle 4.25s ease-in;
+            }
+            .success-checkmark .check-icon::before, .success-checkmark .check-icon::after {
+                content: '';
+                height: 100px;
+                position: absolute;
+                background: #28a745;
+                transform: rotate(-45deg);
+            }
+            .success-checkmark .check-icon .icon-line {
+                height: 5px;
+                background-color: white;
+                display: block;
+                border-radius: 2px;
+                position: absolute;
+                z-index: 10;
+            }
+            .success-checkmark .check-icon .icon-line.line-tip {
+                top: 46px;
+                left: 14px;
+                width: 25px;
+                transform: rotate(45deg);
+                animation: icon-line-tip 0.75s;
+            }
+            .success-checkmark .check-icon .icon-line.line-long {
+                top: 38px;
+                right: 8px;
+                width: 47px;
+                transform: rotate(-45deg);
+                animation: icon-line-long 0.75s;
+            }
+            .success-checkmark .check-icon .icon-circle {
+                top: -4px;
+                left: -4px;
+                z-index: 10;
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
+                position: absolute;
+                box-sizing: content-box;
+                border: 4px solid rgba(216, 255, 218, 0.5);
+            }
+            .success-checkmark .check-icon .icon-fix {
+                top: 8px;
+                width: 5px;
+                left: 26px;
+                z-index: 1;
+                height: 85px;
+                position: absolute;
+                transform: rotate(-45deg);
+                background-color: #28a745;
+            }
+            @keyframes rotate-circle {
+                0% {
+                    transform: rotate(-45deg);
+                }
+                5% {
+                    transform: rotate(-45deg);
+                }
+                12% {
+                    transform: rotate(-405deg);
+                }
+                100% {
+                    transform: rotate(-405deg);
+                }
+            }
+            @keyframes icon-line-tip {
+                0% {
+                    width: 0;
+                    left: 1px;
+                    top: 19px;
+                }
+                54% {
+                    width: 0;
+                    left: 1px;
+                    top: 19px;
+                }
+                70% {
+                    width: 50px;
+                    left: -8px;
+                    top: 37px;
+                }
+                84% {
+                    width: 17px;
+                    left: 21px;
+                    top: 48px;
+                }
+                100% {
+                    width: 25px;
+                    left: 14px;
+                    top: 45px;
+                }
+            }
+            @keyframes icon-line-long {
+                0% {
+                    width: 0;
+                    right: 46px;
+                    top: 54px;
+                }
+                65% {
+                    width: 0;
+                    right: 46px;
+                    top: 54px;
+                }
+                84% {
+                    width: 55px;
+                    right: 0px;
+                    top: 35px;
+                }
+                100% {
+                    width: 47px;
+                    right: 8px;
+                    top: 38px;
+                }
+            }
+
+            .visible {
+                opacity: 0;
+                animation: slideIn .5s forwards;
+            }
+
+            .hide {
+                display: none;
+            }
+
+            .toast-title, .toast-message {
+                font-size: 1.6rem;
+            }
+
+        </style>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="scan-container">
+                <div class="wedding-title">
+                    <div class="sub-header">The Wedding of</div>
+                    <span class="couple-name couple-1">{{ .Wedding.BrideNickName }}</span>
+                    <span class="couple-separator">&</span>
+                    <span class="couple-name couple-2">{{ .Wedding.GroomNickName }}</span>
+                </div>
+                <div class="scan-here">
+                    <img class="qr-image-example" src="https://firebasestorage.googleapis.com/v0/b/tamu-indonesia.appspot.com/o/shared-images%2Fqrlogo.png?alt=media&token=84503991-f4ac-4d8d-aedc-62e318e87270" alt="">
+                    <h1 class=scan-title>Scan here</h1>
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+                <a href="#register-manual" class="register-manual">or register manually</a>
+                <a class="sync-button" href="#">Sync</a>
+                <a class="full-screen-button" href="#">Toggle Fullscreen</a>
+            </div>
+        </div>
+
+        <div class="container register-page">
+            <a class="close-button register-close-button"><i class="fas fa-times"></i></a>
+            <form class="register-form">
+                <input type="text" class="big-input" placeholder="Input your name">
+                <button class="register-submit" hidden><i class="fas fa-sign-in-alt"></i></button>
+            </form>
+        </div>
+
+        <div class="container welcome-page">
+            <a class="close-button welcome-close-button"><i class="fas fa-times"></i></a>
+            <h2 class="sub-headline">
+                <span class="first-letter">W</span>elcome
+            </h2>
+            <h1 class="headline guest-name"></h1>
+            <div class="success-checkmark">
+                <div class="check-icon">
+                    <span class="icon-line line-tip"></span>
+                    <span class="icon-line line-long"></span>
+                    <div class="icon-circle"></div>
+                    <div class="icon-fix"></div>
+                </div>
+            </div>
+        </div>
+
+        <input type="text" class="qr-receiver" style="opacity: 0;">
+    </body>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script>
+        const invitees = {{ .Invitees }};
+        const eventSlug = {{ .Event.Slug }};
+    </script>
+
+    <script>
+        function checkIn(payload) {
+            let date = new Date();
+            payload.CheckedInAt = date.toLocaleString();
+
+            $.ajax({
+                method: "POST",
+                contentType: "application/json",
+                url: `${window.location.origin}/api/events/${eventSlug}/check-in`,
+                data: JSON.stringify(payload)
+            })
+            .done((responseBody) => {
+                payload.CheckInLogID = responseBody.CheckInLogID;
+                storeCheckInLocally(payload);
+            })
+            .fail((jqXHR, textStatus) => {
+                storeCheckInLocally(payload);
+            });
+        }
+
+        function storeCheckInLocally(payload) {
+            let guestsString = localStorage.getItem(eventSlug);
+            try {                    
+                let guests = JSON.parse(guestsString);
+                guests.push(payload);
+
+                let newGuests = JSON.stringify(guests);
+                localStorage.setItem(eventSlug, newGuests);
+
+            } catch(error) {
+                let firstGuest = JSON.stringify([payload]);
+                localStorage.setItem(eventSlug, firstGuest);
+            }
+        }
+
+        function sync() {
+            let guestsString = localStorage.getItem(eventSlug);
+            try {
+                let syncButton = document.querySelector('.sync-button')
+                syncButton.innerHTML = 'synchronizing...';
+                syncButton.disabled = true;
+
+                let guests = JSON.parse(guestsString);
+
+                $.ajax({
+                    method: "POST",
+                    contentType: "application/json",
+                    url: `${window.location.origin}/api/events/${eventSlug}/sync`,
+                    data: JSON.stringify({ CheckInLogRequests: guests.filter((guest) => !guest.CheckInLogID) })
+                })
+                .done((responseBody) => {
+                    syncButton.innerHTML = 'sync';
+                    syncButton.disabled = false;
+                    if (!responseBody.CheckInLogs) {
+                        toastr.success('Data already up to date!');
+                        return
+                    }
+
+                    toastr.success('Successfully synchronized!');
+                    
+                    guests = guests.map(guest => {
+                        let checkInLog = responseBody.CheckInLogs.find(log => log.CheckedInAt === guest.CheckedInAt);
+                        if (!checkInLog) { return guest }
+                        guest.CheckInLogID = checkInLog.CheckInLogID;
+                        return guest
+                    });
+
+                    let synchronizedGuests = JSON.stringify(guests);
+                    localStorage.setItem(eventSlug, synchronizedGuests);
+                })
+                .fail((jqXHR, textStatus) => {
+                    toastr.error(textStatus);
+                    syncButton.innerHTML = 'sync';
+                    syncButton.disabled = false;
+                });
+
+            } catch(error) {
+                console.log(error);
+            }
+        }
+    </script>
+
+    <script>
+        (function() {
+
+            function runAutoFocus(qrReceiver) {
+                return setInterval(function() {
+                    qrReceiver.focus();
+                }, 1000);
+            }
+
+            var guestName = '';
+
+            let welcomePage = document.querySelector('.welcome-page');
+            let guestNameDOM = document.querySelector('.guest-name');
+            let checkIcon = document.querySelector('.check-icon');
+            let welcomeCloseButton = document.querySelector('.welcome-close-button');
+            welcomeCloseButton.addEventListener('click', function() {
+                welcomePage.classList.remove('visible');
+            });
+
+            let qrReceiver = document.querySelector('.qr-receiver');
+            var focusRunner = runAutoFocus(qrReceiver);
+
+            function showWelcomePage(callback) {
+                guestNameDOM.innerHTML = guestName;
+                checkIcon.classList.add('hide');
+                welcomePage.classList.add('visible');
+                clearInterval(focusRunner);
+                
+                setTimeout(() => {
+                    checkIcon.classList.remove('hide');
+                }, 500);
+
+                if (callback) {
+                    callback();
+                }
+                
+                setTimeout(() => {
+                    focusRunner = runAutoFocus(qrReceiver);
+                    welcomePage.classList.remove('visible');
+                }, 5000);
+            }
+
+            qrReceiver.addEventListener('change', function(e) {
+                let inviteeID = e.target.value;
+                let invitee = invitees.find(invitee => invitee.InviteeID === inviteeID);
+                if (!invitee) {
+                    console.log('Guest is not registered');
+                    return;
+                }
+
+                guestName = invitee.Name;
+                checkIn({ InviteeID: inviteeID });
+                showWelcomePage();
+                e.target.value = '';
+            });
+
+            let registerPage = document.querySelector('.register-page');
+            let registerButton = document.querySelector('.register-manual');
+            let registerInputName = document.querySelector('.big-input');
+            let registerSubmitButton = document.querySelector('.register-submit');
+            let registerCloseButton = document.querySelector('.register-close-button');
+
+            registerButton.addEventListener('click', function() {
+                registerPage.classList.add('visible');
+                registerInputName.value = '';
+                registerSubmitButton.hidden = true;
+                clearInterval(focusRunner);
+                setTimeout(() => registerInputName.focus(), 500);
+            });
+
+            registerInputName.addEventListener('keyup', function(e) {
+                guestName = e.target.value;
+                registerSubmitButton.hidden = guestName === 0;
+                registerSubmitButton.disabled = guestName === 0;
+            });
+
+            registerSubmitButton.addEventListener('click', function() {
+                checkIn({ InviteeName: registerInputName.value });
+
+                showWelcomePage(() => {
+                    registerPage.classList.remove('visible');
+                });
+            });
+
+            registerCloseButton.addEventListener('click', function() {
+                registerPage.classList.remove('visible');
+                focusRunner = runAutoFocus(qrReceiver);
+            });
+
+            let syncButton = document.querySelector('.sync-button')
+            syncButton.addEventListener('click', sync);
+
+            var fullScreenButtonAction = openFullscreen;
+            let fullScreenButton = document.querySelector('.full-screen-button');
+            fullScreenButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                fullScreenButtonAction();
+            });
+
+            window.addEventListener("resize", function() {
+                if ((window.fullScreen) || (window.innerWidth == screen.width && window.innerHeight == screen.height)) {
+                    fullScreenButtonAction = closeFullscreen;
+                } else {
+                    fullScreenButtonAction = openFullscreen;
+                }
+            });
+
+            /* View in fullscreen */
+            function openFullscreen() {
+
+                let elem = document.documentElement;
+
+                if (elem.requestFullscreen) {
+                    elem.requestFullscreen();
+                } else if (elem.webkitRequestFullscreen) { /* Safari */
+                    elem.webkitRequestFullscreen();
+                } else if (elem.msRequestFullscreen) { /* IE11 */
+                    elem.msRequestFullscreen();
+                }
+            }
+
+            /* Close fullscreen */
+            function closeFullscreen() {
+
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) { /* Safari */
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) { /* IE11 */
+                    document.msExitFullscreen();
+                }
+            }
+
+        }())
+    </script>
+</html>
+

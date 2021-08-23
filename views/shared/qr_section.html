@@ -1,0 +1,96 @@
+{{ define "QRSection" }}
+<style>
+section#invitation {
+    background-color: #121212;
+}
+
+section#invitation .container {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    align-items: center;
+}
+
+section#invitation canvas {
+    border: 8px solid white;
+    border-radius: 8px;
+    margin: 30px 0;
+}
+
+section#invitation .qrcode-info {
+    font-size: 16px;
+    max-width: 80vw;
+    text-align: center;
+    color: #fff;
+    line-height: 2.4rem;
+    margin: 0px auto 16px auto;
+}
+
+section#invitation .tamu-indonesia-container {
+    color: #fff;
+    text-align: center;
+}
+
+section#invitation .tamu-indonesia-logo {
+    font-size: 2rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 3px;
+    margin-right: -3px;
+    padding-bottom: 50px;
+}
+</style>
+<section id="invitation">
+    <div style="padding: 24px 16px; text-align: center;">
+        <div style="
+            width: 100%;
+            text-align: center;
+            z-index: 1000;
+            color: white;">
+            <div style="
+                font-size: 1.4rem;
+                text-transform: uppercase;
+                letter-spacing: 3px;
+                margin-right: -3px;
+                opacity: 0;
+                animation: fadeUp .5s forwards;
+                animation-delay: .5s;
+                padding-bottom: 1rem;">
+                Inviting our dear guest
+            </div>
+            <div class="guest-name">
+                {{ .Name }}
+            </div>
+        </div>
+        <div class="qrcode-container"></div>
+        <div class="qrcode-info">
+            Dear<span class="guest-name"> {{ .Name }}</span>,</br>
+            We will be using <b>Digital Guest Book</b> to record your attendance. Please show and scan this <b>QRcode</b> when you are entering the venue.</br>
+        </div>
+        <div style="flex: 1;"></div>
+        <div class="tamu-indonesia-container">
+            <p>Powered by:</p>
+            <div style="
+            font-size: 2rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 3px;
+            margin-right: -3px;
+            padding-bottom: 50px;">Tamu Indonesia</div>
+        </div>
+    </div>
+</section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+<script>
+    let invitee = {{ . }}
+    if (invitee) {
+        let qrCodeContainer = $('.qrcode-container');
+        qrCodeContainer.qrcode(invitee.InviteeID);   
+    }
+</script>
+{{ end }}

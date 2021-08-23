@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link rel="stylesheet" href="/assets/croppr/croppr.min.css">
+    <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
+    <link rel="stylesheet" href="/assets/dropzone/basic.min.css">
+
+    <title>Tamu Indonesia</title>
+</head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+          <a class="navbar-brand" href="#">Tamu Indonesia</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+            </ul>
+            <span class="navbar-text">
+              Adityo Rancaka
+            </span>
+          </div>
+      </div>
+  </nav>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 py-md-4">
+          <h2>Create an Event</h2>
+        </div>
+        <div class="col-md-6 py-md-4 text-right">
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </div>
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <a class="nav-link active" id="main-tab" data-toggle="tab" href="#main" role="tab" aria-controls="main" aria-selected="true">Main</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link" id="couple-tab" data-toggle="tab" href="#couple" role="tab" aria-controls="couple" aria-selected="false">Couple</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link" id="event-tab" data-toggle="tab" href="#event" role="tab" aria-controls="event" aria-selected="false">Event</a>
+        </li>
+      </ul>
+
+      <div class="tab-content" id="myTabContent">
+
+        <div class="tab-pane show active py-md-4" id="main" role="tabpanel" aria-labelledby="main-tab">
+          <div class="form-group">
+            <label for="Slug">Slug</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">tamuindonesia.com/</div>
+              </div>
+              <input type="text" class="form-control" id="Slug" name="Slug">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="Message">Invitation Message</label>
+            <textarea class="form-control" id="Message" rows="3" name="Message"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="MetaDescription">Meta Description</label>
+            <textarea class="form-control" id="MetaDescription" rows="3" name="MetaDescription"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="MainQuote">Main Quote</label>
+            <textarea class="form-control" id="MainQuote" rows="3" name="MainQuote"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="Media">Media</label>
+            <div id="media-dropzone" class="dropzone"></div>
+            <!-- <div class="media-dropbox" style="
+              border: 1px solid #ced4da;
+              width: 100%;
+              min-height: 320px;
+              border-radius: 4px;
+              padding: 8px;
+              display: flex;
+              gap: 8px;
+            ">
+              <div class="image-container" style="
+                width: 135px;
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+              ">
+                <div style="
+                  width: 135px;
+                  height: 135px;
+                  border: 1px solid #ddd;
+                  border-radius: 4px;
+                  position: relative;
+                ">
+                  <button style="
+                    position: absolute;
+                    z-index: 999;
+                    top: 4px;
+                    right: 4px;
+                    border: none;
+                    background-color: #ddd;
+                    width: 17px;
+                    height: 17px;
+                    border-radius: 50%;
+                    font-size: 8px;
+                    color: #aaa;
+                  "><i class="fas fa-times"></i></button>
+                  <img src="https://cdn06.pramborsfm.com/storage/app/media/Prambors/cropped-images/Chris%20Evans%20-20200722145601-2-15-1078-703-1595429841.jpg" alt="" style="
+                    height: auto;
+                    width: 100%;
+                    position: absolute;
+                    top: 50%;
+                    -ms-transform: translateY(-50%);
+                    transform: translateY(-50%);
+                  ">
+                </div>
+                <div class="progress" style="height: 8px;">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+                </div>
+              </div>
+            </div> -->
+          </div>
+          <div class="form-group">
+            <label for="CoverPhoto">Cover Photo</label>
+            <input type="file" id="CoverPhoto" name="CoverPhoto" accept="image/*">
+          </div>
+          <div class="form-group">
+            <label for="Photos">Gallery</label>
+            <input type="file" id="Photos" name="Photos" accept="image/*,video/*" multiple>
+          </div>
+          <div class="form-group">
+            <label for="Backsound">Backsound</label>
+            <input type="file" id="Backsound" name="Backsound" accept="audio/mp3">
+          </div>
+          <div class="form-group">
+            <label for="Invitees">Invitees</label>
+            <input type="file" id="Invitees" name="Invitees" accept=".xls,.xlsx,.csv">
+          </div>
+        </div>
+
+        <div class="tab-pane py-md-4" id="couple" role="tabpanel" aria-labelledby="couple-tab">
+          <div class="row">
+            <div class="col-md-6">
+              <h3 class="text-center">Groom</h3>
+              <div class="form-group">
+                <label for="FullName">Full Name</label>
+                <input type="text" class="form-control" id="FullName" name="FullName">
+              </div>
+              <div class="form-group">
+                <label for="NickName">Nick Name</label>
+                <input type="text" class="form-control" id="NickName" name="NickName">
+              </div>
+              <div class="form-group">
+                <label for="Instagram">Instagram</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">@</div>
+                  </div>
+                  <input type="text" class="form-control" id="Instagram" name="Instagram">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="ParentsLabel">Parents Label</label>
+                <input type="text" class="form-control" id="ParentsLabel" name="ParentsLabel">
+              </div>
+              <div class="form-group">
+                <label for="Avatar">Avatar</label>
+                <input type="file" id="Avatar" name="Avatar">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <h3 class="text-center">Bride</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane py-md-4" id="event" role="tabpanel" aria-labelledby="event-tab">
+          <div class="row">
+            <div class="col-md-6">
+              <h3 class="text-center">Ceremony (Akad)</h3>
+              <div class="form-group">
+                <label for="Date">Date</label>
+                <input type="date" class="form-control" id="Date" name="Date">
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="TimeFrom">From</label>
+                    <input type="time" class="form-control" id="TimeFrom" name="TimeFrom">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="TimeTo">To</label>
+                    <input type="time" class="form-control" id="TimeTo" name="TimeTo">
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="Location">Location</label>
+                <textarea class="form-control" id="Location" rows="3" name="Location"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="LocationURL">Location URL</label>
+                <input type="text" class="form-control" id="LocationURL" name="LocationURL">
+              </div>
+
+              <iframe class="map" style="width: 100%;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.0844826392126!2d107.01047885085596!3d-6.252598995451949!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e698e7dfd4cbbd1%3A0x6b0d82f2afc06754!2sGedung%20Serbaguna%20Al-Muhajirien%2C%20Jl.%20Cut%20Mutia%2C%20RT.001%2FRW.011%2C%20Margahayu%2C%20Kec.%20Bekasi%20Tim.%2C%20Kota%20Bks%2C%20Jawa%20Barat%2017113!5e0!3m2!1sen!2sid!4v1613235679796!5m2!1sen!2sid" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+        <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-storage.js"></script>
+    <script src="/assets/dropzone/dropzone.min.js"></script>
+    <script>
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      var firebaseConfig = {
+        apiKey: "AIzaSyCjwijrOrp_wjA2w8NAPAAuV3_FU-YxoHY",
+        authDomain: "tamu-indonesia.firebaseapp.com",
+        projectId: "tamu-indonesia",
+        storageBucket: "tamu-indonesia.appspot.com",
+        messagingSenderId: "584244023870",
+        appId: "1:584244023870:web:0a06718922107e5dd2776f",
+        measurementId: "G-FV7VYLM3JK"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      var storage = firebase.storage();
+    </script>
+    <script>
+      var payload = {};
+      function uploadFile(file, cb) {
+        
+        let progressBar = file.previewElement.children[2];
+        progressBar.opacity = 1;
+        
+        let storageRef = storage.ref("someID/" + file.name);
+        let task  = storageRef.put(file);
+        task
+          .on(firebase.storage.TaskEvent.STATE_CHANGED,
+
+            function progress(snapshot){
+              let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+              progressBar.children[0].style.width = progress+'%'
+            },
+
+            function(error) {
+              // A full list of error codes is available at
+              // https://firebase.google.com/docs/storage/web/handle-errors
+            },
+
+            function() {
+              task.snapshot.ref.getMetadata().then(function(meta) {
+                task.snapshot.ref.getDownloadURL().then(function(downloadUrl){
+                  
+                  file.fullPath = meta.fullPath;
+                  return cb({
+                    meta,
+                    downloadUrl
+                  });
+                });
+              });
+              
+              progressBar.style.opacity = 0
+            }
+          )
+      }
+      
+      Dropzone.autoDiscover = false;
+      $(document).ready(function() {
+
+        var myDropzone = new Dropzone("#media-dropzone", {
+          url: '/',  
+          addRemoveLinks: true,  
+          method: 'put',  
+          chunking: true,
+          forceChunking: true,      
+          autoQueue: false,
+          autoProcessQueue: false,
+        });
+
+        myDropzone.on('addedfile', function(file) {
+            
+          // file.previewElement = Dropzone.createElement(this.options.previewTemplate);
+          if (myDropzone.files.length < 11 ) {
+
+            console.log("uploading " + file.name + "...");
+            uploadFile(file, (response) => {
+              console.log(response);
+            });
+
+          }else {
+            console.log('skipping file as we are excceding the upload limit');
+          }
+        });
+
+        myDropzone.on('removedfile', function(file) {
+          console.log("removing " + file.name + "...");
+          storage.ref(file.fullPath).delete();
+        });
+        
+      });
+    </script>
+  </body>
+</html>

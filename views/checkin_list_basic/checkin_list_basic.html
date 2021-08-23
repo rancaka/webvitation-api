@@ -1,0 +1,180 @@
+<html>
+    <head>
+        <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgo=">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+        <style>
+            @import url('https://fonts.googleapis.com/css?family=Cabin|Herr+Von+Muellerhoff|Source+Sans+Pro:400,900&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;900&display=swap');
+
+            *,
+            *::before,
+            *::after{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            :root {
+                --main-font: 'Source Sans Pro', sans-serif;
+                --secondary-font: 'Herr Von Muellerhoff', cursive;
+                --third-font: 'Montserrat', sans-serif;
+                --body-font: 'Cabin', sans-serif;
+                --main-font-color-dark: #252525;
+                --secondary-font-color: #c59d5f;
+                --body-font-color: #515151;
+            }
+
+            html {
+                font-family: var(--main-font);
+                color: var(--body-font-color);
+                font-size: 10px;
+                scroll-behavior: smooth;
+            }
+
+            html, body {
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+
+            body {
+                background:
+                linear-gradient(
+                    rgba(0, 0, 0, 0.5), 
+                    rgba(0, 0, 0, 0.5)
+                ),
+                url('{{ .Wedding.CheckInBackgroundURL }}');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                position: relative;
+                height: 100vh;
+                overflow-y: hidden;
+            }
+
+            .container {
+                height: 100vh;
+                width: 100vw;
+                position: absolute;
+                padding: 16px;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .wedding-title {
+                width: 100%;
+                color: white;
+                z-index: 1000;
+                text-align: center;
+            }
+
+            .sub-header {
+                text-transform: uppercase;
+                letter-spacing: 5px;
+                margin-right: -5px;
+                font-size: 2rem;
+            }
+
+            .couple-name {
+                display: inline-block;
+                font-family: var(--secondary-font);
+                font-size: 16rem;
+                font-weight: 100;
+            }
+
+            .couple-separator {
+                display: inline-block;
+                font-family: var(--secondary-font);
+                font-size: 4rem;
+                padding: 0 4rem;
+            }
+
+            .checkin-list-container {
+                padding: 3rem;
+                overflow-y: auto;
+                height: 300px;
+                flex: 1;
+            }
+
+            ul.checkin-list {
+                list-style: none;
+            }
+
+            li.checkin-list-item {
+                margin-bottom: 8px;
+                padding: 8px 8px 8px 26px;
+                color: #fff;
+                font-size: 3rem;
+                border: 1px solid #fff;
+                border-radius: 30px;
+            }
+
+        </style>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="wedding-title">
+                <div class="sub-header">Welcome to The Wedding of</div>
+                <span class="couple-name couple-1">{{ .Wedding.BrideNickName }}</span>
+                <span class="couple-separator">&</span>
+                <span class="couple-name couple-2">{{ .Wedding.GroomNickName }}</span>
+            </div>
+            <div class="checkin-list-container">
+                <ul class="checkin-list">
+                </ul>
+            </div>
+        </div>
+    </body>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.4/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.4/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.4/firebase-firestore.js"></script>
+
+    <script>
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    var firebaseConfig = {
+        apiKey: "AIzaSyCjwijrOrp_wjA2w8NAPAAuV3_FU-YxoHY",
+        authDomain: "tamu-indonesia.firebaseapp.com",
+        projectId: "tamu-indonesia",
+        storageBucket: "tamu-indonesia.appspot.com",
+        messagingSenderId: "584244023870",
+        appId: "1:584244023870:web:0a06718922107e5dd2776f",
+        measurementId: "G-FV7VYLM3JK"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+
+    var db = firebase.firestore();
+    var eventID = {{ .Event.EventID }};
+
+    db
+    .collection(`/events/${eventID}/check-ins`)
+    .orderBy("CheckedInAtUnix")
+    .onSnapshot((querySnapshot) => {
+        
+        var listContainer = document.querySelector('.checkin-list');
+        listContainer.innerHTML = '';
+
+        var counter = 0;
+        querySnapshot
+        .forEach((doc) => {
+            counter++;
+            let li = document.createElement('li');
+            li.setAttribute('class', 'checkin-list-item');
+            li.innerHTML = `${counter}. ${doc.data().InviteeName}`
+            listContainer.append(li);
+        });
+
+        let rootContainer = document.querySelector('.checkin-list-container');
+        rootContainer.scrollTop = rootContainer.scrollHeight;
+    });
+    </script>
+</html>

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgo=">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    {{ with $invitee := .Invitee }}
+    <meta name="description" content="Inviting our dear guest, {{ $invitee.Name }}">
+    {{ else }}
+    <meta name="description" content="The Wedding of {{ .Wedding.BrideNickName }} & {{ .Wedding.GroomNickName }}">
+    {{ end }}
+    <meta property="og:image" content="{{ .Wedding.OGPhotoURL }}">
+    <style>
+        section#home > .container {
+            background:
+            linear-gradient(
+                rgba(0, 0, 0, 0.5), 
+                rgba(0, 0, 0, 0.5)
+            ),
+            url({{ .Wedding.CoverPhotoURL }});
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position-x: center;
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-flex-direction: column;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+    </style>
+    <link rel="stylesheet" href="/static/css/wedding_basic/wedding_basic.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <title>{{ .Wedding.BrideNickName }} & {{ .Wedding.GroomNickName }} Wedding Invitation</title>
+</head>
+<body>
+    <section id="home">
+        <div class="container">
+            <div class="wedding-title">
+                <div class="sub-header">The Wedding of</div>
+                <span class="couple-name couple-1">{{ .Wedding.BrideNickName }}</span>
+                <span class="couple-separator">&</span>
+                <span class="couple-name couple-2">{{ .Wedding.GroomNickName }}</span>
+                <!-- <div class="wedding-date">11.02.2021</div> -->
+            </div>
+            {{ with $invitee := .Invitee }}
+            <div class="guest-space">
+                <div class="guest-title">Inviting our dear guest</div>
+                <div class="guest-name">{{ $invitee.Name }}</div>
+            </div>
+            {{ end }}
+        </div>
+    </section>
+    <section id="about-us">
+        <div class="container">
+            <div class="about-us-header">
+                <div class="global-headline animate-bottom">
+                    <h2 class="sub-headline">
+                        We're Getting
+                    </h2>
+                    <h1 class="headline headline-dark">Married</h1>
+                </div>
+                <div class="rose-container">
+                    <img class="rose-1" src="https://firebasestorage.googleapis.com/v0/b/tamu-indonesia.appspot.com/o/shared-images%2Frose.webp?alt=media&token=37ce42ce-933c-44b3-879c-b2bcf50dae28" alt="">
+                </div>
+                <p>
+                    {{ EscapeHTML .Wedding.MainQuote }}
+                </p>
+            </div>
+            <div class="couple-container">
+                <div class="person-container animate-left">
+                    <img class="couple-image" src="{{ .Wedding.BridePhotoURL }}" alt="">
+                    <div class="name">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/tamu-indonesia.appspot.com/o/shared-images%2Fdiamond-ring.png?alt=media&token=8870f692-764c-4807-948c-ca473f3efeb2" alt="">
+                        {{ .Wedding.BrideFullName }}
+                    </div>
+                    <div class="parents"><i>{{ .Wedding.BrideParentsLabel }}</i></div>
+                    <div class="instagram">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/tamu-indonesia.appspot.com/o/shared-images%2Finstagram-icon.png?alt=media&token=75c9367e-064d-46f3-acd9-851f6350c0ad" alt="">
+                        <a href="https://www.instagram.com/{{ .Wedding.BrideInstagram }}" class="instagram-link" target="_blank">@{{ .Wedding.BrideInstagram }}</a>
+                    </div>
+                </div>
+                <div class="person-container animate-right">
+                    <img class="couple-image" src="{{ .Wedding.GroomPhotoURL }}" alt="">
+                    <div class="name">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/tamu-indonesia.appspot.com/o/shared-images%2Fdiamond-ring.png?alt=media&token=8870f692-764c-4807-948c-ca473f3efeb2" alt="">
+                        {{ .Wedding.GroomFullName }}
+                    </div>
+                    <div class="parents"><i>{{ .Wedding.GroomParentsLabel }}</i></div>
+                    <div class="instagram">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/tamu-indonesia.appspot.com/o/shared-images%2Finstagram-icon.png?alt=media&token=75c9367e-064d-46f3-acd9-851f6350c0ad" alt="">
+                        <a href="https://www.instagram.com/{{ .Wedding.GroomInstagram }}" class="instagram-link" target="_blank">@{{ .Wedding.GroomInstagram }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{ $length := len .Photos }} {{ if gt $length 0 }}
+    <section id="gallery">
+        <div class="container">
+            {{ range $index, $photo := .Photos }}
+                {{ if eq $photo.MediaType "image" }}
+                    <img src="{{ $photo.URL }}" alt="">
+                {{ end }}
+                {{ if eq $photo.MediaType "video" }}
+                    <video style="width:100%; height:auto" controls preload="metadata" poster="{{ $photo.VideoPosterURL }}">
+                        <source src="{{ $photo.URL }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                {{ end }}
+            {{ end }}
+        </div>
+    </section>
+    {{ end }}
+
+    <section id="event">
+        <div class="container">
+            <div class="global-headline animate-bottom">
+                <h2 class="sub-headline">
+                    <span class="first-letter">S</span>ave
+                </h2>
+                <h1 class="headline headline-dark">The Date</h1>
+            </div>
+
+            <div class="event-date animate-bottom">
+                <div class="day-label">{{ GetWeekday .Wedding.ReceptionDate }}</div>
+                <div class="date-space">
+                    <div class="date-label">
+                        <div class="date-big">{{ GetDay .Wedding.ReceptionDate }}</div>
+                    </div>
+                    <div class="year-label">
+                        <div class="date-big">{{ GetMonth .Wedding.ReceptionDate }}</div>
+                        <div>{{ GetYear .Wedding.ReceptionDate }}</div>
+                    </div>
+                </div>
+                <div class="countdown-container"></div>
+            </div>
+
+            {{ $ceremonyTimeFrom := GetHourAndMinute .Wedding.CeremonyTimeFrom }} {{ if ne $ceremonyTimeFrom "" }}
+            <div class="venue-space animate-bottom">
+                <h2>Matrimony (Akad)</h2>
+                <p>{{ $ceremonyTimeFrom }} - {{ $ceremonyTimeTo := GetHourAndMinute .Wedding.CeremonyTimeTo }}{{ if ne $ceremonyTimeTo "" }}{{ $ceremonyTimeTo }}{{ else }}Finish{{ end }}</p>
+            </div>
+            {{ end }}
+
+            <div class="venue-space animate-bottom">
+                <h2>Reception</h2>
+                <p>{{ GetHourAndMinute .Wedding.ReceptionTimeFrom }} - {{ GetHourAndMinute .Wedding.ReceptionTimeTo }}</p>
+            </div>
+
+            <div class="venue-space animate-bottom">
+                <h2>Venue</h2>
+                <p>{{ .Wedding.ReceptionLocationName }}</p>
+                <iframe class="map" src="{{ .Wedding.ReceptionLocationURL }}" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+            </div>
+
+            {{ template "Covid19Section" }}
+
+        </div>
+    </section>
+    {{ with $invitee := .Invitee }}
+        {{ template "QRSection" $invitee }}
+    {{ end }}
+    <nav class="bottom-navbar">
+        <div class="container">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">
+                        <i class="fas fa-home"></i>
+                        Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about-us" class="nav-link">
+                        <i class="fas fa-heart"></i>
+                        About Us
+                    </a>
+                </li>
+                {{ $length := len .Photos }} {{ if gt $length 0 }}
+                <li class="nav-item">
+                    <a href="#gallery" class="nav-link">
+                        <i class="fas fa-images"></i>
+                        Gallery
+                    </a>
+                </li>
+                {{ end }}
+                <li class="nav-item">
+                    <a href="#event" class="nav-link">
+                        <i class="fas fa-calendar-check"></i>
+                        Event
+                    </a>
+                </li>
+                {{ with $invitee := .Invitee }}
+                <li class="nav-item">
+                    <a href="#invitation" class="nav-link">
+                        <i class="fas fa-qrcode"></i>
+                        Invitation
+                    </a>
+                </li>
+                {{ end }}
+            </ul>
+        </div>
+    </nav>
+    <button id="audio-button"><i class="fas fa-play"></i></button>
+    <audio src="{{ .Wedding.BacksoundURL }}"></audio>
+</body>
+<script src="/static/js/countdown.min.js"></script>
+<script src="https://unpkg.com/scrollreveal"></script>
+<script>
+    (function() {
+
+        let year = {{ GetYear .Wedding.ReceptionDate }}
+        let month = {{ GetMonthNumber .Wedding.ReceptionDate }}
+        let day = {{ GetDay .Wedding.ReceptionDate }}
+        let hour = {{ GetHour .Wedding.ReceptionTimeFrom }}
+
+        var timerId =
+            countdown(
+                new Date(year, month-1, day, hour, 0),
+                function(ts) {
+                    let countdownBlock = `
+                        <div class="countdown-block">${ts.days}<div class="countdown-label">days</div></div>
+                        <div class="countdown-block">${ts.hours}<div class="countdown-label">hours</div></div>
+                        <div class="countdown-block">${ts.minutes}<div class="countdown-label">minutes</div></div>
+                        <div class="countdown-block">${ts.seconds}<div class="countdown-label">seconds</div></div>
+                    `
+                    document.querySelector('.countdown-container').innerHTML = countdownBlock;
+                },
+                countdown.DAYS|countdown.HOURS|countdown.MINUTES|countdown.SECONDS);
+
+        let links = document.querySelectorAll('a.nav-link');
+        let resetLinks = () => {
+            links.forEach(link => {
+                link.classList.remove('active');
+            });
+        }
+
+        links[0].classList.add('active');
+
+        let sections = document.querySelectorAll('section');
+
+        // animate rose
+        let aboutUsSection = document.querySelector('#about-us');
+        
+        let roseContainer = document.querySelector('.rose-container');
+        let roseElement = document.querySelector('.rose-1');
+
+        var currentSection = "";
+        window.addEventListener("scroll", (event) => {
+
+            let roseContainerHeight = roseContainer.clientHeight;
+            let roseThreshold = roseContainer.getBoundingClientRect().top-roseContainerHeight;
+            roseElement.style.transform = `translateY(${Math.max(roseThreshold, 0)}px)`;
+            // finish animate rose
+
+            resetLinks();
+
+            var sectionsHeight = 0;
+            for (let i=0; i<sections.length; i++) {
+                sectionsHeight += sections[i].offsetHeight/2;
+                if (this.scrollY < sectionsHeight) {
+                    if (!links[i].classList.contains('active')) {
+                        links[i].classList.add('active');
+                    }
+                    break
+                }
+                sectionsHeight += sections[i].offsetHeight/2;
+            }
+        });
+
+        window.sr = ScrollReveal();
+        sr.reveal('.animate-left', {
+            origin: 'left',
+            duration: 1000,
+            distance: '25rem',
+            delay: 300
+        });
+        sr.reveal('.animate-right', {
+            origin: 'right',
+            duration: 1000,
+            distance: '25rem',
+            delay: 600
+        });
+        sr.reveal('.animate-top', {
+            origin: 'top',
+            duration: 1000,
+            distance: '25rem',
+            delay: 300
+        });
+        sr.reveal('.animate-bottom', {
+            origin: 'bottom',
+            duration: 1000,
+            distance: '25rem',
+            delay: 600
+        });
+
+        const button = document.querySelector("#audio-button");
+        const icon = document.querySelector("#audio-button > i");
+        const audio = document.querySelector("audio");
+
+        button.addEventListener("click", () => {
+
+            if (audio.paused) {
+                audio.volume = 0.2;
+                audio.play();
+                icon.classList.remove('fa-play');
+                icon.classList.add('fa-pause');
+                
+            } else {
+                audio.pause();
+                icon.classList.remove('fa-pause');
+                icon.classList.add('fa-play');
+            }
+
+            button.classList.add("fade");
+        });
+
+    }())
+</script>
+</html>
