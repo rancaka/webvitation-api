@@ -9,12 +9,14 @@ import (
 	"cloud.google.com/go/firestore"
 	firebase "firebase.google.com/go"
 	"firebase.google.com/go/auth"
+	"firebase.google.com/go/storage"
 	"google.golang.org/api/option"
 )
 
 type FirebaseApp struct {
 	Auth      *auth.Client
 	Firestore *firestore.Client
+	Storage   *storage.Client
 }
 
 var (
@@ -48,6 +50,13 @@ func getFirebaseApp() *FirebaseApp {
 		firebaseApp.Firestore, err = app.Firestore(ctx)
 		if err != nil {
 			fmt.Printf("[BOOTING] error when initiating firebase Firestore: %v\n", err)
+			os.Exit(1)
+			return
+		}
+
+		firebaseApp.Storage, err = app.Storage(ctx)
+		if err != nil {
+			fmt.Printf("[BOOTING] error when initiating firebase Storage: %v\n", err)
 			os.Exit(1)
 			return
 		}

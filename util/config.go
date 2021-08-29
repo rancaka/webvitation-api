@@ -10,14 +10,22 @@ import (
 )
 
 type Config struct {
-	Firebase struct {
+	Environment string
+	Firebase    struct {
 		Credentials string
 	}
 	Storage struct {
 		DB struct {
 			DataSourceName string
 		}
+		Bucket struct {
+			Name string
+		}
 	}
+}
+
+func (c Config) IsProduction() bool {
+	return c.Environment == "production"
 }
 
 var (

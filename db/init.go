@@ -5,8 +5,8 @@ import (
 	"log"
 
 	"github.com/jmoiron/sqlx"
-	"github.com/rancaka/webvitation-web/models"
-	"github.com/rancaka/webvitation-web/util"
+	"github.com/rancaka/webvitation-api/models"
+	"github.com/rancaka/webvitation-api/util"
 )
 
 var (
@@ -30,7 +30,8 @@ var (
 	CreateNotification func(ctx context.Context, notification *models.Notification) (string, error) = createNotification
 
 	// MediaQuery
-	GetMediaByEventID func(ctx context.Context, eventID string) ([]*models.Media, error) = getMediaByEventID
+	GetMediaByEventID func(ctx context.Context, eventID string) ([]*models.Media, error)                          = getMediaByEventID
+	InsertMedia       func(ctx context.Context, eventID, path, videoPosterPath string, mediaType MediaType) error = insertMedia
 )
 
 func getLastInsertedUUID(row *sqlx.Row) (string, error) {

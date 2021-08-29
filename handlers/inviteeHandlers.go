@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo"
-	"github.com/rancaka/webvitation-web/db"
-	"github.com/rancaka/webvitation-web/models"
+	"github.com/rancaka/webvitation-api/db"
+	"github.com/rancaka/webvitation-api/models"
 )
 
 func CreateInviteesBulkHandler(c echo.Context) error {

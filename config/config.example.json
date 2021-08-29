@@ -1,10 +1,14 @@
 {
+    "Environment": "development",
     "Firebase": {
         "Credentials": "credentials/firebase-production-credentials.json"
     },
     "Storage": {
         "DB": {
             "DataSourceName": "some data storage"
+        },
+        "Bucket": {
+            "Name": ""
         }
     }
 }

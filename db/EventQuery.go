@@ -5,7 +5,7 @@ import (
 	"log"
 
 	"github.com/jmoiron/sqlx"
-	"github.com/rancaka/webvitation-web/models"
+	"github.com/rancaka/webvitation-api/models"
 )
 
 const eventColumns = `
@@ -14,7 +14,7 @@ const eventColumns = `
 	invitation_message,
 	creator_uid,
 	created_at,
-	updaated_at
+	updated_at
 `
 
 func getEventsByUID(ctx context.Context, creatorUID string) ([]*models.Event, error) {
@@ -33,7 +33,7 @@ func getEventsByUID(ctx context.Context, creatorUID string) ([]*models.Event, er
 func getEventByEventID(ctx context.Context, eventID string) (*models.Event, error) {
 
 	event := new(models.Event)
-	query := "SELECT " + eventColumns + " FROM events WHERE event_id = ? LIMIT 1"
+	query := "SELECT " + eventColumns + " FROM events WHERE event_id = uuid_to_bin(?) LIMIT 1"
 	err := sqlx.GetContext(ctx, db, event, query, eventID)
 	if err != nil {
 		log.Printf("[ERROR] db.GetEventByEventID -> sqlx.GetContext: (%v)\n", err)

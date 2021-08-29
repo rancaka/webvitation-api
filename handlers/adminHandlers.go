@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo"
-	"github.com/rancaka/webvitation-web/db"
+	"github.com/rancaka/webvitation-api/db"
 )
 
 func GetAdminEventListPage(c echo.Context) error {

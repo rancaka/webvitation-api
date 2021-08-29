@@ -6,7 +6,7 @@ import (
 
 	"github.com/gosimple/slug"
 	"github.com/jmoiron/sqlx"
-	"github.com/rancaka/webvitation-web/models"
+	"github.com/rancaka/webvitation-api/models"
 )
 
 const inviteeColumns = `

@@ -8,7 +8,7 @@ import (
 
 	"firebase.google.com/go/auth"
 	"github.com/labstack/echo"
-	"github.com/rancaka/webvitation-web/models"
+	"github.com/rancaka/webvitation-api/models"
 )
 
 func GetLoginPageHandler(c echo.Context) error {
@@ -55,6 +55,19 @@ func LoginHandler(c echo.Context) error {
 
 func VerifyToken(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
+
+		if !config.IsProduction() {
+			// bypass me
+			auth := &models.Auth{
+				UID:     "hIQ8ugRsjKXB6EApQGCUOD0rbJ83",
+				Email:   "rancaka.dev@gmail.com",
+				Name:    "Adityo Rancaka",
+				Picture: "",
+			}
+
+			c.Set("AUTH", auth)
+			return next(c)
+		}
 
 		var decodedToken *auth.Token
 		cookie, err := c.Cookie("session")

@@ -42,8 +42,8 @@ CREATE TABLE event_notifications(
 CREATE TABLE event_media(
   media_id BINARY(16) PRIMARY KEY DEFAULT (UUID_TO_BIN(UUID())),
 
-  url TEXT,
-  video_poster_url TEXT,
+  path TEXT,
+  video_poster_path TEXT,
   type VARCHAR(64) NOT NULL,
   
   event_id BINARY(16),

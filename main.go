@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/labstack/echo"
-	"github.com/rancaka/webvitation-web/handlers"
+	"github.com/rancaka/webvitation-api/handlers"
 )
 
 type MyTemplate struct {
@@ -83,10 +83,14 @@ func main() {
 	admin.GET("/event/create", handlers.GetAdminCreateEventPage)
 
 	api := e.Group("/api")
+
 	events := api.Group("/events")
 	events.Use(handlers.VerifyToken)
 	events.GET("", handlers.GetEventsHandler)
 	events.POST("/create", handlers.CreateEventHandler)
+
+	newEventDetail := events.Group("/:eventID")
+	newEventDetail.POST("/upload-media", handlers.HandleUploadMedia, handlers.VerifyToken)
 
 	eventDetail := events.Group("/:eventSlug")
 	eventDetail.GET("", handlers.GetEventDetailHandler)

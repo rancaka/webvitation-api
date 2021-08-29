@@ -2,7 +2,7 @@ package handlers
 
 import (
 	"github.com/labstack/echo"
-	"github.com/rancaka/webvitation-web/models"
+	"github.com/rancaka/webvitation-api/models"
 )
 
 type MyContext struct {

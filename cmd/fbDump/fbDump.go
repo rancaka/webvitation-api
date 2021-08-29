@@ -6,9 +6,9 @@ import (
 	"log"
 	"time"
 
-	"github.com/rancaka/webvitation-web/db"
-	"github.com/rancaka/webvitation-web/models"
-	"github.com/rancaka/webvitation-web/util"
+	"github.com/rancaka/webvitation-api/db"
+	"github.com/rancaka/webvitation-api/models"
+	"github.com/rancaka/webvitation-api/util"
 )
 
 var (

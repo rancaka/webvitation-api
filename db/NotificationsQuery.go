@@ -4,7 +4,7 @@ import (
 	"context"
 	"log"
 
-	"github.com/rancaka/webvitation-web/models"
+	"github.com/rancaka/webvitation-api/models"
 )
 
 const (
